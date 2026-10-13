@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Studyline — your timetable, with homework attached</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="brand__mark" aria-hidden="true"></span>Studyline</div>
+  <div class="topbar__actions">
+    <button id="agendaBtn" class="icon-btn" type="button" aria-label="Upcoming work">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10.3 20a2 2 0 0 0 3.4 0"/></svg>
+      <span id="badge" class="badge" hidden>0</span>
+    </button>
+    <button id="editBtn" class="btn" type="button">Edit timetable</button>
+  </div>
+</header>
+
+<main class="page">
+  <section id="today" class="today" aria-live="polite"></section>
+  <section id="board" class="board" aria-label="Weekly timetable"></section>
+</main>
+
+<div id="scrim" class="scrim" hidden></div>
+
+<aside id="drawer" class="drawer" role="dialog" aria-hidden="true" aria-labelledby="drawerTitle">
+  <button id="drawerClose" class="icon-btn drawer__close" type="button" aria-label="Close panel">&times;</button>
+  <div id="drawerBody" class="drawer__body"></div>
+</aside>
+
+<dialog id="editor" class="editor" aria-labelledby="editorTitle">
+  <div class="editor__head">
+    <h2 id="editorTitle">Your timetable</h2>
+    <button id="editorClose" class="icon-btn" type="button" aria-label="Close">&times;</button>
+  </div>
+
+  <div class="editor__body">
+    <section class="panel">
+      <h3>1 &middot; Subjects</h3>
+      <p class="muted">Subjects in the same group share a colour family. Lighter and darker shades tell them apart.</p>
+      <ul id="subjectList" class="plain-list"></ul>
+      <form id="subjectForm" class="inline-form">
+        <input name="name" placeholder="Subject name" maxlength="40" required aria-label="Subject name">
+        <select name="group" aria-label="Group"></select>
+        <button class="btn btn--primary" type="submit">Add</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>2 &middot; Classes</h3>
+      <form id="periodForm" class="inline-form inline-form--classes">
+        <select name="day" aria-label="Day"></select>
+        <input type="time" name="start" value="08:30" required aria-label="Start time">
+        <input type="time" name="end" value="09:15" required aria-label="End time">
+        <select name="subject" aria-label="Subject"></select>
+        <button class="btn btn--primary" type="submit">Add class</button>
+      </form>
+      <p id="editorError" class="form__error" role="alert"></p>
+      <div id="periodList"></div>
+    </section>
+
+    <details class="panel backup">
+      <summary>Backup &amp; restore</summary>
+      <p class="muted">Your data lives in this browser. Copy it somewhere safe, or paste a backup here to restore it.</p>
+      <textarea id="backupBox" rows="5" aria-label="Backup data"></textarea>
+      <div class="backup__actions">
+        <button id="backupFill" class="btn" type="button">Show my data</button>
+        <button id="backupRestore" class="btn" type="button">Restore from box</button>
+      </div>
+      <p id="backupMsg" class="muted" role="status"></p>
+    </details>
+  </div>
+
+  <div class="editor__foot">
+    <button id="sampleBtn" class="btn" type="button">Load sample timetable</button>
+    <button id="clearBtn" class="btn btn--danger" type="button">Clear everything</button>
+    <button id="doneBtn" class="btn btn--primary" type="button">Done</button>
+  </div>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
